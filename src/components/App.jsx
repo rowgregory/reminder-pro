@@ -16,11 +16,8 @@ class App extends Component {
     }
 
     addReminder(){
-       
-        console.log('dueDate', this.state.dueDate)
         this.props.addReminder(this.state.text, this.state.dueDate, this.state.alert);
         
-
         this.setState({
             text: '',
             dueDate:''
@@ -28,8 +25,6 @@ class App extends Component {
     }
 
     deleteReminder(id){
-        console.log('deleting in application', id);
-        console.log('this.props', this.props);
         this.props.deleteReminder(id);
     }
 
@@ -50,19 +45,14 @@ class App extends Component {
                                 &#x2715;
                             </div> 
                             <div className="list-item">
-                                    <div className="reminder-text">{ reminder.text }</div> 
-                                    
-                                   
-                                    <div>
-                                        { this.state.alert === moment(reminder.dueDate).isAfter()
-                                            ? <div className="alert">This reminder passed {moment(new Date(reminder.dueDate)).fromNow() }</div>
-                                            : <div className="alert2"><em> {moment(new Date(reminder.dueDate)).fromNow() }</em></div>
-                                        }
-                                    </div>
-                                                                
+                                <div className="reminder-text">{ reminder.text }</div>                                    
+                                <div>
+                                    { this.state.alert === moment(reminder.dueDate).isAfter()
+                                        ? <div className="alert">This reminder passed {moment(new Date(reminder.dueDate)).fromNow() }</div>
+                                        : <div className="alert2"><em> {moment(new Date(reminder.dueDate)).fromNow() }</em></div>
+                                    }
+                                </div>                              
                             </div>
-                            {/* <div className="alert2"><em> {moment(new Date(reminder.dueDate)).fromNow() }</em></div> */}
-                            
                         </li>
                     )
                 })}
@@ -103,7 +93,6 @@ class App extends Component {
                             }}
                         />
                     </div> 
-                   
                     <button 
                         type="button"
                         className = "btn btn-success"
