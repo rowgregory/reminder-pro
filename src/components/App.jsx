@@ -47,7 +47,7 @@ class App extends Component {
                                  <div>{ reminder.alert }</div>
                     
                                  { this.state.alert === moment(reminder.dueDate).isAfter()
-                                    ? <h1>This reminder has passed</h1>
+                                    ? <div className="alert">This reminder has passed</div>
                                     : <div></div>
                                 }
                                  
