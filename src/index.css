@@ -31,8 +31,12 @@ input {
 }
 .delete-button{
     padding-left:5px;
-    
+    cursor:pointer;
     float:right;
+}
+.delete-button:hover{
+    font-weight:bold;
+    color:red;
 }
 
 .alert{
