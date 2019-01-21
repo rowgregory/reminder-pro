@@ -22,7 +22,7 @@ const reminders = (state = [], action) => {
     switch(action.type) {
         case ADD_REMINDER:
             reminders = [...state, reminder(action)];
-                bake_cookie('reminders', reminders);
+            bake_cookie('reminders', reminders);
             return reminders;
         case DELETE_REMINDER:
             reminders = removeById(state, action.id);

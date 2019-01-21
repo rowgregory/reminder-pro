@@ -9,14 +9,15 @@ class App extends Component {
         super(props);
         this.state = {
             text: '',
-            dueDate:''
+            dueDate:'',
+            alert:false
         }
     }
 
     addReminder(){
        
         console.log('dueDate', this.state.dueDate)
-        this.props.addReminder(this.state.text, this.state.dueDate);
+        this.props.addReminder(this.state.text, this.state.dueDate, this.state.alert);
         this.setState({
             text: ''
         })
@@ -28,8 +29,11 @@ class App extends Component {
         this.props.deleteReminder(id);
     }
 
+    
+
     renderReminders(){
         const { reminders } = this.props;
+        
         return (
             <ul className="list-group col-sm-4">
                 { reminders.map(reminder => {
@@ -39,8 +43,16 @@ class App extends Component {
                             className="list-group-item">
                             <div 
                                 className="list-item">
-                                 <div>{ reminder.text }</div>   
-                                 <div><em>{moment(new Date(reminder.dueDate)).fromNow() }</em></div>   
+                                 <div>{ reminder.text }</div> 
+                                 <div>{ reminder.alert }</div>
+                    
+                                 { this.state.alert === moment(reminder.dueDate).isAfter()
+                                    ? <h1>This reminder has passed</h1>
+                                    : <div></div>
+                                }
+                                 
+                                <div><em>{moment(new Date(reminder.dueDate)).fromNow() }</em></div> 
+                                
                             </div>
                             
                             <div 
@@ -80,6 +92,12 @@ class App extends Component {
                             className="form-control"
                             type="datetime-local"
                             onChange={event => this.setState({dueDate:event.target.value})}
+                            onKeyPress={event => {
+                                if(event.key === 'Enter'){ 
+                                    console.log('Enter key', event.key);
+                                    this.addReminder() 
+                                }   
+                            }}
                         />
                     </div> 
                    
