@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addReminder, deleteReminder, clearReminders } from '../actions';
 import moment from 'moment';
+import '../index.css';
 
 
 class App extends Component {
@@ -18,8 +19,11 @@ class App extends Component {
        
         console.log('dueDate', this.state.dueDate)
         this.props.addReminder(this.state.text, this.state.dueDate, this.state.alert);
+        
+
         this.setState({
-            text: ''
+            text: '',
+            dueDate:''
         })
     }
 
@@ -28,8 +32,6 @@ class App extends Component {
         console.log('this.props', this.props);
         this.props.deleteReminder(id);
     }
-
-    
 
     renderReminders(){
         const { reminders } = this.props;
@@ -42,25 +44,25 @@ class App extends Component {
                             key={ reminder.id }
                             className="list-group-item">
                             <div 
-                                className="list-item">
-                                 <div>{ reminder.text }</div> 
-                                 <div>{ reminder.alert }</div>
-                    
-                                 { this.state.alert === moment(reminder.dueDate).isAfter()
-                                    ? <div className="alert">This reminder has passed</div>
-                                    : <div></div>
-                                }
-                                 
-                                <div><em>{moment(new Date(reminder.dueDate)).fromNow() }</em></div> 
-                                
-                            </div>
-                            
-                            <div 
                                 className="list-item delete-button"
                                 onClick={() => this.deleteReminder(reminder.id)}
                                 >
                                 &#x2715;
+                            </div> 
+                            <div className="list-item">
+                                    <div className="reminder-text">{ reminder.text }</div> 
+                                    
+                                   
+                                    <div>
+                                        { this.state.alert === moment(reminder.dueDate).isAfter()
+                                            ? <div className="alert">This reminder passed {moment(new Date(reminder.dueDate)).fromNow() }</div>
+                                            : <div className="alert2"><em> {moment(new Date(reminder.dueDate)).fromNow() }</em></div>
+                                        }
+                                    </div>
+                                                                
                             </div>
+                            {/* <div className="alert2"><em> {moment(new Date(reminder.dueDate)).fromNow() }</em></div> */}
+                            
                         </li>
                     )
                 })}
@@ -92,6 +94,7 @@ class App extends Component {
                             className="form-control"
                             type="datetime-local"
                             onChange={event => this.setState({dueDate:event.target.value})}
+                            value={this.state.dueDate}
                             onKeyPress={event => {
                                 if(event.key === 'Enter'){ 
                                     console.log('Enter key', event.key);

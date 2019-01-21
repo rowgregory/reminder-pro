@@ -19,14 +19,25 @@ input {
 }
 .list-item {
     display:inline-block;
-
+    
 }
-.delete-button {
+.delete-button{
     padding-left:5px;
+    
     float:right;
 }
 
 .alert{
     color:red;
     font-weight:bold;
+    
 }
+.alert2{
+    color:rgb(2, 195, 2);
+    font-weight:bold;
+    float:clear;
+}
+/* .reminder-text{
+    text-align:center !important;
+} */
+
